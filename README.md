@@ -39,7 +39,16 @@ Publish the built script to the configured destination:
 usb publish
 ```
 
-`usb publish` requires a clean Git working tree.
+`usb publish` requires:
+- a clean Git working tree
+- a Git remote named `origin` pointing to GitHub
+- `GITHUB_TOKEN` or `GH_TOKEN` set in the environment
+
+It will:
+- create a tag like `v1.0.1`
+- push the branch and tag
+- create a GitHub Release
+- upload the built `.user.js` from `dist/`
 
 ## 📁 Project Structure
 

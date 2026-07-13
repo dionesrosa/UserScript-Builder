@@ -32,3 +32,62 @@ export async function assertCleanWorkingTree() {
         throw error;
     }
 }
+
+export async function getCurrentBranch() {
+    const { stdout } = await runGit(["rev-parse", "--abbrev-ref", "HEAD"]);
+    const branch = stdout.trim();
+
+    if (!branch || branch === "HEAD") {
+        throw new Error("Não foi possível identificar a branch atual.");
+    }
+
+    return branch;
+}
+
+export async function getRemoteUrl(remoteName = "origin") {
+    try {
+        const { stdout } = await runGit(["remote", "get-url", remoteName]);
+        const url = stdout.trim();
+
+        return url || null;
+
+    } catch (error) {
+        if (error.message?.includes("No such remote")) {
+            return null;
+        }
+
+        throw error;
+    }
+}
+
+export async function tagExists(tagName) {
+    try {
+        await runGit(["rev-parse", "--verify", `refs/tags/${tagName}`]);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+export async function createTag(tagName, message) {
+    await runGit(["tag", "-a", tagName, "-m", message]);
+}
+
+export async function pushBranch(remoteName, branchName) {
+    await runGit(["push", remoteName, branchName]);
+}
+
+export async function pushTag(remoteName, tagName) {
+    await runGit(["push", remoteName, tagName]);
+}
+
+export async function remoteTagExists(remoteName, tagName) {
+    const { stdout } = await runGit([
+        "ls-remote",
+        "--tags",
+        remoteName,
+        `refs/tags/${tagName}`
+    ]);
+
+    return Boolean(stdout.trim());
+}
