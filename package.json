@@ -1,0 +1,54 @@
+{
+  "name": "userscript-builder",
+  "version": "0.1.0",
+  "description": "CLI for building and publishing UserScripts.",
+  "keywords": [
+    "userscript",
+    "tampermonkey",
+    "violentmonkey",
+    "greasyfork",
+    "browser-extension",
+    "javascript",
+    "cli",
+    "builder",
+    "bundler",
+    "automation",
+    "build-tool",
+    "userscript-builder",
+    "metadata",
+    "release",
+    "developer-tools",
+    "web-customization",
+    "productivity",
+    "open-source"
+  ],
+  "author": "Diones Souza",
+  "license": "MIT",
+  "type": "module",
+
+  "main": "./src/index.js",
+
+  "bin": {
+    "userscript-builder": "./bin/usb.js",
+    "usb": "./bin/usb.js"
+  },
+
+  "scripts": {
+    "dev": "node ./bin/usb.js"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dionesrosa/userscript-builder.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/dionesrosa/userscript-builder/issues"
+  },
+
+  "homepage": "https://github.com/dionesrosa/userscript-builder#readme",
+
+  "engines": {
+    "node": ">=20"
+  }
+}
