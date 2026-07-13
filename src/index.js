@@ -6,19 +6,27 @@ export async function run(args) {
     console.log(`🔨 ${APP_NAME} v${VERSION}`);
     console.log("");
 
-    const command = args[0];
+    try {
 
-    switch (command) {
+        const command = args[0];
 
-        case "build":
-            await build();
-            break;
+        switch (command) {
 
-        default:
-            console.log("Commands:");
-            console.log("  build");
-            console.log("  init");
-            console.log("  release");
+            case "build":
+                await build();
+                break;
+
+            default:
+                console.log("Commands:");
+                console.log("  build");
+                console.log("  init");
+                console.log("  release");
+        }
+
+    } catch (error) {
+        
+        console.error(`❌ ${error.message}`);
+        
     }
 
 }

@@ -3,7 +3,9 @@ export function validateConfig(config) {
     const required = [
         "name",
         "version",
-        "description"
+        "description",
+        "author",
+        "match"
     ];
 
     const missing = required.filter(
@@ -16,5 +18,5 @@ export function validateConfig(config) {
         );
     }
 
-    return true;
+    return config;
 }
