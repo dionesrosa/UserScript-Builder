@@ -24,23 +24,46 @@ export async function collectProjectConfig() {
     return config;
 }
 
-export async function collectAdvancedConfig() {
+async function askSection(question, collector) {
+    const answer = await ask(question, "n");
 
+    if (answer.toLowerCase() !== "s") {
+        return {};
+    }
+
+    console.log("");
+
+    return collector();
+}
+
+async function collectIdentityConfig() {
     return {
         namespace: await ask(
             "Namespace",
             "http://tampermonkey.net/"
         ),
 
-        license: await ask(
-            "License",
-            "MIT"
+        copyright: await ask(
+            "Copyright"
         ),
 
         icon: await ask(
             "Icon URL"
         ),
 
+        icon64: await ask(
+            "Icon 64x64 URL"
+        ),
+
+        license: await ask(
+            "License",
+            "MIT"
+        )
+    };
+}
+
+async function collectLinkConfig() {
+    return {
         homepageURL: await ask(
             "Homepage URL"
         ),
@@ -56,6 +79,70 @@ export async function collectAdvancedConfig() {
         downloadURL: await ask(
             "Download URL"
         )
+    };
+}
+
+async function collectRuntimeConfig() {
+    return {
+        run_at: await ask(
+            "Run at",
+            "document-idle"
+        ),
+
+        run_in: await ask(
+            "Run in",
+            "normal-tabs"
+        ),
+
+        sandbox: await ask(
+            "Sandbox",
+            "raw"
+        ),
+
+        noframes: (await ask(
+            "No frames? (s/n)",
+            "n"
+        )).toLowerCase() === "s",
+
+        tag: toList(await ask(
+            "Tags (separe por vírgula)"
+        ))
+    };
+}
+
+async function collectPermissionConfig() {
+    return {
+        include: toList(await ask(
+            "Include (separe por vírgula)"
+        )),
+
+        exclude: toList(await ask(
+            "Exclude (separe por vírgula)"
+        )),
+
+        require: toList(await ask(
+            "Require (separe por vírgula)"
+        )),
+
+        grant: toList(await ask(
+            "Grant (separe por vírgula)"
+        )),
+
+        connect: toList(await ask(
+            "Connect (separe por vírgula)"
+        ))
+    };
+}
+
+export async function collectAdvancedConfig() {
+    console.log("⚙️ Configurações avançadas");
+    console.log("");
+
+    return {
+        ...(await askSection("Configurar identidade avançada? (s/n)", collectIdentityConfig)),
+        ...(await askSection("Configurar links do projeto? (s/n)", collectLinkConfig)),
+        ...(await askSection("Configurar execução? (s/n)", collectRuntimeConfig)),
+        ...(await askSection("Configurar permissões? (s/n)", collectPermissionConfig))
     };
 
 }

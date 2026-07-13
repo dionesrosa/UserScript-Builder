@@ -9,6 +9,7 @@ export function generateConfig(config) {
     const exclude = toList(config.exclude);
     const require = toList(config.require);
     const connect = toList(config.connect);
+    const tag = toList(config.tag);
 
     return {
         name: config.name,
@@ -16,12 +17,14 @@ export function generateConfig(config) {
         output: getOutputFile(config),
 
         namespace: config.namespace || "",
+        copyright: config.copyright || "",
         version: config.version,
         description: config.description,
         author: config.author,
         license: config.license || "MIT",
 
         icon: config.icon || "",
+        icon64: config.icon64 || "",
 
         homepageURL: config.homepageURL || "",
         supportURL: config.supportURL || "",
@@ -34,8 +37,11 @@ export function generateConfig(config) {
         require,
         grant,
         connect,
+        tag,
 
         run_at: config.run_at || "document-idle",
+        run_in: config.run_in || "",
+        sandbox: config.sandbox || "",
         noframes: config.noframes || false
     };
 }

@@ -8,7 +8,8 @@ A modern CLI toolkit for creating, building and releasing browser UserScripts.
 - Generate Tampermonkey metadata
 - Bundle project files
 - Version management
-- Release automation (future)
+- Local release flow
+- Publish automation (future)
 
 ## 📦 Installation
 
@@ -23,6 +24,22 @@ Build your UserScript:
 ```bash
 usb build
 ```
+
+Create a local release:
+
+```bash
+usb release patch
+usb release minor
+usb release major
+```
+
+Publish the built script to the configured destination:
+
+```bash
+usb publish
+```
+
+`usb publish` requires a clean Git working tree.
 
 ## 📁 Project Structure
 

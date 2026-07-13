@@ -1,6 +1,8 @@
 import { APP_NAME, VERSION } from "./constants.js";
 import init from "./commands/init.js";
 import build from "./commands/build.js";
+import release from "./commands/release.js";
+import publish from "./commands/publish.js";
 
 export async function run(args) {
 
@@ -21,11 +23,21 @@ export async function run(args) {
                 await build();
                 break;
 
+            case "release":
+                await release(args.slice(1));
+                break;
+
+            case "publish":
+                await publish();
+                break;
+
             default:
                 console.log("Comandos:");
                 console.log("  build");
                 console.log("  init");
                 console.log("    --yes, -y");
+                console.log("  release patch|minor|major");
+                console.log("  publish");
         }
 
     } catch (error) {

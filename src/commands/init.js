@@ -68,19 +68,13 @@ export default async function init(args = []) {
                 "Configurações avançadas? (s/n)"
             );
 
-
             if (advanced.toLowerCase() === "s") {
-
-                console.log("");
-                console.log("⚙️ Configurações avançadas");
-
                 const advancedConfig = await collectAdvancedConfig();
 
                 Object.assign(
                     answers,
                     advancedConfig
                 );
-
             }
         }
 
