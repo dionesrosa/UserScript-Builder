@@ -14,7 +14,7 @@ export async function run(args) {
         switch (command) {
 
             case "init":
-                await init();
+                await init(args.slice(1));
                 break;
 
             case "build":
@@ -25,7 +25,7 @@ export async function run(args) {
                 console.log("Comandos:");
                 console.log("  build");
                 console.log("  init");
-                console.log("  release");
+                console.log("    --yes, -y");
         }
 
     } catch (error) {

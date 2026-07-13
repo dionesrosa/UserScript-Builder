@@ -10,11 +10,21 @@ export async function loadConfig() {
 
         return JSON.parse(content);
 
-    } catch {
+    } catch (error) {
 
-        throw new Error(
-            `Configuration file not found: ${CONFIG_FILE}`
-        );
+        if (error.code === "ENOENT") {
+            throw new Error(
+                `Arquivo de configuração não encontrado: ${CONFIG_FILE}`
+            );
+        }
+
+        if (error instanceof SyntaxError) {
+            throw new Error(
+                `Arquivo de configuração inválido: ${CONFIG_FILE}`
+            );
+        }
+
+        throw error;
 
     }
 

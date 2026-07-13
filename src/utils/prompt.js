@@ -7,10 +7,15 @@ let rl;
 function getPrompt() {
 
     if (!rl) {
-        rl = readlinePromises.createInterface({
-            input,
-            output
-        });
+        rl = output.isTTY
+            ? readlinePromises.createInterface({
+                input,
+                output
+            })
+            : readlinePromises.createInterface({
+                input,
+                terminal: false
+            });
     }
 
     return rl;
@@ -28,11 +33,13 @@ export async function ask(question, defaultValue = "") {
 
     const value = answer.trim() || defaultValue;
 
-    readline.moveCursor(output, 0, -1);
-    readline.clearLine(output, 0);
-    readline.cursorTo(output, 0);
+    if (output.isTTY) {
+        readline.moveCursor(output, 0, -1);
+        readline.clearLine(output, 0);
+        readline.cursorTo(output, 0);
 
-    output.write(`${question}: ${value}\n`);
+        output.write(`${question}: ${value}\n`);
+    }
 
     return value;
 }

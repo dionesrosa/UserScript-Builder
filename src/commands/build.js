@@ -4,6 +4,7 @@ import { validateConfig } from "../utils/validator.js";
 import { generateMetadata } from "../utils/metadata.js";
 import { generateScript } from "../utils/template.js";
 import { getOutputFile } from "../utils/output.js";
+import { getEntryFile } from "../utils/entry.js";
 
 export default async function build() {
 
@@ -22,9 +23,11 @@ export default async function build() {
     console.log("🔖 Versão:", config.version);
     console.log("");
 
-    const script = await readProjectFile(config.entry);
+    const entryFile = getEntryFile(config);
 
-    console.log("📄 Entrada:", config.entry);
+    const script = await readProjectFile(entryFile);
+
+    console.log("📄 Entrada:", entryFile);
 
     const metadata = generateMetadata(config);
 

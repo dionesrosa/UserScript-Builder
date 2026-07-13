@@ -1,8 +1,6 @@
 export function validateConfig(config) {
 
     const required = [
-        "entry",
-        "output",
         "name",
         "version",
         "description",
