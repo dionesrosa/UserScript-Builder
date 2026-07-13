@@ -18,3 +18,15 @@ export async function readProjectFile(file) {
         throw error;
     }
 }
+
+export async function writeProjectFile(file, content) {
+
+    const root = process.cwd();
+    const filePath = path.join(root, file);
+
+    await fs.mkdir(path.dirname(filePath), {
+        recursive: true
+    });
+
+    await fs.writeFile(filePath, content, "utf-8");
+}
