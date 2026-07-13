@@ -1,7 +1,8 @@
-import { readProjectFile } from "../utils/files.js";
+import { readProjectFile, writeProjectFile } from "../utils/files.js";
 import { loadConfig } from "../utils/config.js";
 import { validateConfig } from "../utils/validator.js";
 import { generateMetadata } from "../utils/metadata.js";
+import { generateScript } from "../utils/template.js";
 
 export default async function build() {
     let config = await loadConfig();
@@ -11,12 +12,14 @@ export default async function build() {
     
     const metadata = generateMetadata(config);
 
+    const output = generateScript(metadata, script);
+
     console.log("📦 Project:", config.name);
     console.log("🔖 Version:", config.version);
-    //console.log("📝 Metadata:");
-    //console.log(metadata);
+    console.log("");
 
-    console.log("📝 Entry:");
-    console.log(script);
-
+    await writeProjectFile(
+        config.output ? config.output : `dist/${config.name.toLowerCase().replaceAll(" ", "-")}.user.js`,
+        output
+    );
 }
