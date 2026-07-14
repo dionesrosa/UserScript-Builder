@@ -8,7 +8,8 @@ import { parseReleaseType } from "../src/commands/release.js";
 import {
     getAssetName,
     getReleaseTag,
-    parsePublishOptions
+    parsePublishOptions,
+    pushReleaseRefs
 } from "../src/commands/publish.js";
 
 test("parseInitArgs reconhece modo não interativo", () => {
@@ -39,4 +40,31 @@ test("parsePublishOptions valida combinações inválidas", () => {
 test("getReleaseTag e getAssetName formatam corretamente", () => {
     assert.equal(getReleaseTag("1.2.3"), "v1.2.3");
     assert.equal(getAssetName("dist/meu-script.user.js"), "meu-script.user.js");
+});
+
+test("pushReleaseRefs envia branch sempre e tag apenas quando ausente no remoto", async () => {
+    let pushedBranch = false;
+    let pushedTag = false;
+
+    const branchPush = async () => {
+        pushedBranch = true;
+    };
+
+    const tagPush = async () => {
+        pushedTag = true;
+    };
+
+    const remoteTagExists = async () => true;
+
+    await pushReleaseRefs({
+        remoteName: "origin",
+        branchName: "main",
+        releaseTag: "v1.0.0",
+        pushBranchImpl: branchPush,
+        pushTagImpl: tagPush,
+        remoteTagExistsImpl: remoteTagExists
+    });
+
+    assert.equal(pushedBranch, true);
+    assert.equal(pushedTag, false);
 });

@@ -82,11 +82,32 @@ async function ensureLocalTag(releaseTag) {
 async function ensureRemoteTag(remoteName, releaseTag) {
     if (await remoteTagExists(remoteName, releaseTag)) {
         console.log(`ℹ️ Tag remota já existe em ${remoteName}:`, releaseTag);
-        return;
+        return false;
     }
 
     console.log(`ℹ️ Enviando tag para ${remoteName}:`, releaseTag);
     return true;
+}
+
+export async function pushReleaseRefs({
+    remoteName,
+    branchName,
+    releaseTag,
+    pushBranchImpl = pushBranch,
+    pushTagImpl = pushTag,
+    remoteTagExistsImpl = remoteTagExists
+}) {
+    const shouldPushTag = !(await remoteTagExistsImpl(remoteName, releaseTag));
+
+    await pushBranchImpl(remoteName, branchName);
+
+    if (shouldPushTag) {
+        await pushTagImpl(remoteName, releaseTag);
+        console.log("✅ Branch e tag enviados para o Git");
+        return;
+    }
+
+    console.log("✅ Branch enviado para o Git");
 }
 
 async function getReleaseByTagOrNull(repository, releaseTag, token) {
@@ -231,11 +252,11 @@ export default async function publish(args = []) {
 
     await ensureLocalTag(releaseTag);
 
-    if (await ensureRemoteTag(remoteName, releaseTag)) {
-        await pushBranch(remoteName, branchName);
-        await pushTag(remoteName, releaseTag);
-        console.log("✅ Branch e tag enviados para o Git");
-    }
+    await pushReleaseRefs({
+        remoteName,
+        branchName,
+        releaseTag
+    });
 
     const release = await createOrUpdateRelease({
         repository,
