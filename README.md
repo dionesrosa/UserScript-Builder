@@ -1,31 +1,31 @@
-# User Script Builder
+# UserScript Builder
 
-A modern CLI toolkit for creating, building and releasing browser UserScripts.
+Um conjunto de ferramentas CLI moderno para criar, compilar e distribuir UserScripts para navegadores.
 
-## 🚀 Features
+## 🚀 Recursos
 
-- Build UserScripts automatically
-- Generate Tampermonkey metadata
-- Bundle project files
-- Version management
-- Release flow with automatic commit
-- Publish automation to GitHub Releases
+- Compila UserScripts automaticamente
+- Gera metadados para Tampermonkey
+- Agrupa arquivos do projeto
+- Gerenciamento de versão
+- Fluxo de release com commit automático
+- Automação de publicação no GitHub Releases
 
-## 📦 Installation
+## 📦 Instalação
 
 ```bash
 npm install
 ```
 
-## 🔨 Usage
+## 🔨 Uso
 
-Build your UserScript:
+Para compilar seu UserScript:
 
 ```bash
 usb build
 ```
 
-Create a release and bump the version:
+Criar um release e aumentar a versão:
 
 ```bash
 usb release patch
@@ -33,25 +33,25 @@ usb release minor
 usb release major
 ```
 
-This command will:
-- update the version in the config
-- run the build
-- create a Git commit with the new version
+Este comando irá:
+- atualizar a versão no arquivo de configuração
+- executar o build
+- criar um commit Git com a nova versão
 
-Publish the built script to GitHub:
+Publicar o script gerado no GitHub:
 
 ```bash
 usb publish
 ```
 
-This command will:
-- validate the Git working tree
-- push the current branch to the remote
-- create or update a Git tag like `v1.0.1`
-- publish a GitHub Release
-- upload the built `.user.js` artifact from `dist/`
+Este comando irá:
+- validar a árvore de trabalho do Git
+- enviar o branch atual para o remoto
+- criar ou atualizar uma tag Git no formato `v1.0.1`
+- publicar um GitHub Release
+- enviar o artefato `.user.js` gerado de `dist/`
 
-Draft and prerelease examples:
+Exemplos para draft e prerelease:
 
 ```bash
 usb publish --draft
@@ -59,20 +59,20 @@ usb publish --prerelease
 usb publish --publish-draft
 ```
 
-## ⚙️ Requirements
+## ⚙️ Requisitos
 
-`usb publish` requires:
-- a clean Git working tree
-- a Git remote named `origin` pointing to GitHub
-- one of the following configured for GitHub API access:
+Para usar `usb publish` é necessário:
+- árvore de trabalho Git limpa (sem alterações pendentes)
+- um remoto Git chamado `origin` apontando para o repositório no GitHub
+- uma das opções de autenticação para a API do GitHub configurada:
   - `GITHUB_TOKEN`
   - `GH_TOKEN`
   - `GITHUB_PAT`
-  - or GitHub CLI authentication via `gh auth login`
+  - ou autenticação pelo GitHub CLI via `gh auth login`
 
-## 📁 Project Structure
+## 📁 Estrutura do Projeto
 
-Example:
+Exemplo:
 
 ```text
 my-userscript/
@@ -83,32 +83,32 @@ my-userscript/
 └── package.json
 ```
 
-## 🛠 Development
+## 🛠 Desenvolvimento
 
-Clone the repository:
+Clone o repositório:
 
 ```bash
 git clone https://github.com/dionesrosa/userscript-builder.git
 ```
 
-Install dependencies:
+Instale as dependências:
 
 ```bash
 npm install
 ```
 
-Run locally:
+Execute localmente:
 
 ```bash
 npm run dev
 ```
 
-Run tests:
+Execute os testes:
 
 ```bash
 npm test
 ```
 
-## 📄 License
+## 📄 Licença
 
-MIT License
+Licença MIT
