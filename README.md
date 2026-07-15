@@ -1,4 +1,4 @@
-# userscript-builder
+# UserScript-Builder
 
 Ferramenta CLI para criar, compilar e publicar userscripts com metadados prontos para o Tampermonkey.
 
@@ -87,7 +87,7 @@ my-userscript/
 Clone o repositório:
 
 ```bash
-git clone https://github.com/dionesrosa/userscript-builder.git
+git clone https://github.com/dionesrosa/UserScript-Builder.git
 ```
 
 Instale as dependências:
