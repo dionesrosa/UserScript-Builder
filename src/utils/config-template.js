@@ -16,6 +16,8 @@ export function generateConfig(config) {
         entry: getEntryFile(config),
         output: getOutputFile(config),
 
+        bundle: config.bundle || false,
+
         namespace: config.namespace || "",
         copyright: config.copyright || "",
         version: config.version,

@@ -14,8 +14,14 @@ export async function collectProjectConfig() {
 
     config.name = await ask("Nome do projeto", folderName);
     config.version = await ask("Versão", "1.0.0");
-    config.description = await ask("Descrição");
     config.author = await ask("Autor");
+    config.description = await ask("Descrição");
+    
+    config.bundle = (await ask(
+        "Habilitar bundle? (s/n)",
+        "n"
+    )).toLowerCase() === "s";
+
     config.match = toList(await ask(
         "Match (separe por vírgula)",
         "*://*/*"
@@ -25,9 +31,16 @@ export async function collectProjectConfig() {
 }
 
 async function askSection(question, collector) {
+    const acceptedYes = [
+        "s",
+        "sim",
+        "y",
+        "yes"
+    ];
+
     const answer = await ask(question, "n");
 
-    if (answer.toLowerCase() !== "s") {
+    if (!acceptedYes.includes(answer.toLowerCase())) {
         return {};
     }
 
@@ -43,17 +56,17 @@ async function collectIdentityConfig() {
             "http://tampermonkey.net/"
         ),
 
-        copyright: await ask(
+        /*copyright: await ask(
             "Copyright"
-        ),
+        ),*/
 
         icon: await ask(
             "Icon URL"
         ),
 
-        icon64: await ask(
+        /*icon64: await ask(
             "Icon 64x64 URL"
-        ),
+        ),*/
 
         license: await ask(
             "License",
@@ -90,18 +103,15 @@ async function collectRuntimeConfig() {
         ),
 
         run_in: await ask(
-            "Run in",
-            "normal-tabs"
+            "Run in"
         ),
 
         sandbox: await ask(
-            "Sandbox",
-            "raw"
+            "Sandbox"
         ),
 
         noframes: (await ask(
-            "No frames? (s/n)",
-            "n"
+            "No frames? (s/n)"
         )).toLowerCase() === "s",
 
         tag: toList(await ask(

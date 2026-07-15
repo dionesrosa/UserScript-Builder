@@ -5,6 +5,7 @@ import { generateMetadata } from "../utils/metadata.js";
 import { generateScript } from "../utils/template.js";
 import { getOutputFile } from "../utils/output.js";
 import { getEntryFile } from "../utils/entry.js";
+import { bundleProject } from "../utils/bundle.js";
 
 export default async function build() {
 
@@ -25,7 +26,13 @@ export default async function build() {
 
     const entryFile = getEntryFile(config);
 
-    const script = await readProjectFile(entryFile);
+    let script;
+    
+    if(config.bundle) {
+        script = await bundleProject(entryFile);
+    } else {
+        script = await readProjectFile(entryFile);
+    }
 
     console.log("📄 Entrada:", entryFile);
 

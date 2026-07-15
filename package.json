@@ -25,39 +25,35 @@
   "author": "Diones Souza",
   "license": "MIT",
   "type": "module",
-
   "main": "./src/index.js",
   "files": [
     "bin",
     "src",
     "README.md"
   ],
-
   "bin": {
     "userscript-builder": "./bin/usb.js",
     "usb": "./bin/usb.js"
   },
-
   "scripts": {
     "dev": "node ./bin/usb.js",
     "test": "node --test"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dionesrosa/userscript-builder.git"
   },
-
   "bugs": {
     "url": "https://github.com/dionesrosa/userscript-builder/issues"
   },
-
   "homepage": "https://github.com/dionesrosa/userscript-builder#readme",
   "publishConfig": {
     "access": "public"
   },
-
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.1"
   }
 }
